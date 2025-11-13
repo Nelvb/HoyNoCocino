@@ -1,81 +1,243 @@
-# WebApp boilerplate with React JS and Flask API
+# 🍽️ Hoy No Cocino
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+**Plataforma full-stack de reservas de restaurantes** que conecta comensales con restaurantes, permitiendo gestionar reservas, menús y disponibilidad de forma ágil y profesional.
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+🌐 **En producción:** [hoynococino.es](https://hoynococino.es)
 
-### 1) Installation:
+---
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+## 📋 Descripción
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
+Hoy No Cocino es una aplicación web completa que digitaliza el sistema de reservas para restaurantes. Ofrece una experiencia moderna tanto para clientes que buscan dónde comer como para propietarios que necesitan gestionar su negocio de forma eficiente.
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+### ✨ Características principales
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
+**Para Clientes:**
+- 🔐 Registro e inicio de sesión seguro
+- 🔍 Exploración de restaurantes con filtros y búsqueda
+- 📅 Sistema de reservas (crear, editar, cancelar)
+- ⭐ Gestión de favoritos
+- 👤 Panel personal con historial de reservas
+- 📧 Confirmaciones por email
+- ✏️ Edición de perfil
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+**Para Restauradores:**
+- 🏢 Panel de administración completo
+- 🍴 Gestión de información del restaurante
+- 🕐 Configuración de horarios y disponibilidad
+- 📸 Galería de fotos
+- 🍕 Gestión de menú y platos
+- 📊 Control de reservas recibidas
+- 📝 Edición completa de datos
 
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
+---
 
-### Undo a migration
+## 🛠️ Stack Tecnológico
 
-You are also able to undo a migration by running
+### Frontend
+- **React.js** - Biblioteca de UI
+- **Webpack** - Bundler
+- **Bootstrap** - Framework CSS
+- **JavaScript ES6+**
 
-```sh
-$ pipenv run downgrade
+### Backend
+- **Python 3.x**
+- **Flask** - Framework web
+- **Flask-JWT** - Autenticación y autorización
+- **SQLAlchemy** - ORM
+- **Alembic** - Migraciones de base de datos
+- **Flask-Mail** - Envío de emails
+
+### Base de Datos
+- **PostgreSQL** - Base de datos relacional
+
+### Deployment
+- **Render** - Hosting (frontend + backend)
+- **Dominio personalizado:** hoynococino.es
+
+---
+
+## 🚀 Instalación y Configuración
+
+### Prerrequisitos
+
+- Python 3.10+
+- Node.js 14+
+- PostgreSQL
+- Pipenv
+
+### Backend
+
+1. **Instalar dependencias:**
+   ```bash
+   pipenv install
+   ```
+
+2. **Configurar variables de entorno:**
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Configurar DATABASE_URL en `.env`:**
+
+   | Motor      | Ejemplo de URL                                          |
+   |------------|---------------------------------------------------------|
+   | SQLite     | `sqlite:////test.db`                                    |
+   | MySQL      | `mysql://username:password@localhost:3306/database`     |
+   | PostgreSQL | `postgres://username:password@localhost:5432/database`  |
+
+4. **Ejecutar migraciones:**
+   ```bash
+   pipenv run migrate
+   pipenv run upgrade
+   ```
+
+5. **Poblar la base de datos (opcional):**
+   ```bash
+   pipenv run insert-test-data
+   ```
+
+6. **Iniciar servidor backend:**
+   ```bash
+   pipenv run start
+   ```
+
+### Frontend
+
+1. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+2. **Iniciar servidor de desarrollo:**
+   ```bash
+   npm run start
+   ```
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+hoy-no-cocino/
+├── src/
+│   ├── api/              # Backend Flask
+│   │   ├── models.py     # Modelos de base de datos
+│   │   ├── routes.py     # Endpoints de la API
+│   │   ├── commands.py   # Comandos CLI
+│   │   └── utils.py      # Utilidades
+│   └── front/            # Frontend React
+│       ├── js/
+│       │   ├── component/  # Componentes reutilizables
+│       │   ├── pages/      # Vistas principales
+│       │   └── store/      # Estado global
+│       └── styles/         # Estilos CSS
+├── migrations/           # Migraciones de Alembic
+├── .env.example         # Variables de entorno de ejemplo
+└── README.md
 ```
 
-### Backend Populate Table Users
+---
 
-To insert test users in the database execute the following command:
+## 🔑 Comandos Útiles
 
-```sh
-$ flask insert-test-users 5
+### Backend
+
+```bash
+# Crear nueva migración
+pipenv run migrate
+
+# Aplicar migraciones
+pipenv run upgrade
+
+# Revertir última migración
+pipenv run downgrade
+
+# Insertar usuarios de prueba
+flask insert-test-users 5
+
+# Insertar datos de prueba
+pipenv run insert-test-data
 ```
 
-And you will see the following message:
+### Frontend
 
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
+```bash
+# Modo desarrollo
+npm run start
+
+# Build para producción
+npm run build
 ```
 
-### **Important note for the database and the data inside it**
+---
 
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
+## 🌐 Despliegue
 
-### Front-End Manual Installation:
+La aplicación está configurada para desplegarse fácilmente en **Render**:
 
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
+1. Conecta tu repositorio de GitHub
+2. Configura las variables de entorno
+3. Render detectará automáticamente Flask y React
+4. La aplicación estará disponible en tu dominio
 
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
+📚 [Documentación completa de despliegue](https://start.4geeksacademy.com/deploy)
 
-## Publish your website!
+---
 
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
+## 🗄️ Modelos de Base de Datos
 
-### Contributors
+El proyecto incluye los siguientes modelos principales:
 
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
+- **Users** - Usuarios del sistema (clientes y restauradores)
+- **Restaurants** - Información de restaurantes
+- **Dishes** - Platos del menú
+- **Schedules** - Horarios de apertura
+- **Reservations** - Reservas realizadas
+- **Favorites** - Favoritos de usuarios
 
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+---
+
+## 🔒 Seguridad
+
+- Autenticación basada en JWT
+- Roles de usuario (cliente/restaurador)
+- Protección de rutas sensibles
+- Validación de datos en frontend y backend
+- Variables de entorno para datos sensibles
+
+---
+
+## 📝 Notas Importantes
+
+### Base de Datos en Entornos de Desarrollo
+
+Cada entorno (GitHub Codespaces, local, etc.) tendrá su propia base de datos. Los datos **no se comparten** entre entornos. Para facilitar el desarrollo, utiliza el comando `insert-test-data` para poblar tu base de datos automáticamente.
+
+### PostgreSQL en Codespaces
+
+```bash
+psql -h localhost -U gitpod example
+```
+
+---
+
+## 🤝 Contribuciones
+
+Este proyecto fue desarrollado como parte del bootcamp de [4Geeks Academy](https://4geeksacademy.com).
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo licencia MIT.
+
+---
+
+## 📧 Contacto
+
+Para más información sobre el proyecto, no dudes en contactar.
+
+---
+
+**Hecho con ❤️ para revolucionar las reservas de restaurantes**
